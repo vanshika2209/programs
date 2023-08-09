@@ -1,0 +1,58 @@
+mport java.util.Scanner;
+import java.util.Random;
+
+public class Number_guessing
+{
+    public static void main(String[] args) 
+    {
+        Scanner sc=new Scanner(System.in);
+     String play="yes";
+     System.out.println("\t Guess The Number");
+
+     while(play.equals("yes"))
+     {
+        Random rand=new Random();
+        int randnum=rand.nextInt(100);
+        int guess=-1;
+        int tries=10;
+
+        while(guess!=randnum)
+        {
+            System.out.println("Guess a number 1 to 100");
+            guess=sc.nextInt();
+            --tries;
+            if(tries!=0)
+            {
+
+            if(guess==randnum)
+          {
+            System.out.println("Congratulations! You guessed it right!");
+            System.out.println("It took you "+tries+" guesses.");
+            System.out.println("Do you wish to play another round Yes or No");
+            play=sc.next().toLowerCase();
+          }
+          else if(guess>randnum)
+          {
+            System.out.println("Your guess is too High. Try Again.");
+            System.out.println(tries+" tries left");
+            
+          }
+          else if(guess<randnum)
+          {
+            System.out.println("Your guess is too Low. Try Again.");
+            System.out.println(tries+" Tries left");
+
+          }
+        }
+        else
+          {
+            System.out.println("No more tries left");
+            System.out.println("Do you wish to play again! Yes or No");
+            play=sc.next().toLowerCase();
+          break;
+          }
+        }
+      }
+System.out.println("\t Game End!");
+    }
+  }
