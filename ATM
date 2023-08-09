@@ -1,0 +1,169 @@
+mport java.util.Scanner;
+
+import javax.sound.sampled.SourceDataLine;
+
+import java.util.ArrayList;
+import java.util.List;
+class ATM
+{
+    private static float balance=1000;// initial balance
+    private static List<String> transactionHistory = new ArrayList<>();
+    public static void main(String args[])
+    {
+        System.out.println("\tWelcome To Our ATM");
+        int pinv=5678;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter pin");
+        int pin=sc.nextInt();
+        if(pin==pinv)
+        {
+            System.out.println("1: Transaction History");
+            System.out.println("2: Withdraw");
+            System.out.println("3: Deposit Money");
+            System.out.println("4: Transfer Money");
+            System.out.println("5: Quit");
+            System.out.println("Enter your choice");
+            int ch=sc.nextInt();
+            switch(ch)
+            {
+                case 1:
+                    transactionhist();
+                    break;
+                case 2:
+                    withdraw();
+                    break;
+                case 3:
+                    deposit();
+                    break;
+                case 4:
+                    transfer();
+                    break;
+                case 5:
+                    quit();
+                    break;
+                default:System.out.println("Invalid choice");
+
+            }
+        }
+        else
+        {
+            System.out.println("Invalid pin");
+        }
+    }
+
+    public static void menu()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("1: Transaction History");
+        System.out.println("2: Withdraw");
+        System.out.println("3: Deposit Money");
+        System.out.println("4: Transfer Money");
+        System.out.println("5: Quit");
+        System.out.println("Enter your choice");
+        int ch=sc.nextInt();
+
+        switch(ch)
+        {
+            case 1:
+                transactionhist();
+                break;
+            case 2:
+                withdraw();
+                break;
+            case 3:
+                deposit();
+                break;
+            case 4:
+                transfer();
+                break;
+            case 5:
+                quit();
+                break;
+            default:System.out.println("Invalid choice");
+
+        }
+    }
+
+    public static void withdraw()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter amount");
+        float amt=sc.nextFloat();
+        if(amt<=balance)
+        {
+            balance=balance-amt;
+            System.out.println("Amount withdrawal successful");
+            System.out.println("Withdrawn amount: "+amt);
+            System.out.println("Current balance: "+balance);
+            transactionHistory.add("Withdrawn: "+amt);
+        }
+        else
+        {
+            System.out.println("Insufficient balance");
+        }
+        menu();
+    }
+
+    public static void deposit()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter amount");
+        float amt=sc.nextFloat();
+        balance=balance+amt;
+        System.out.println("AmountDeposited Successfully");
+        System.out.println("Deposited amount: "+amt);
+        System.out.println("Current balance: "+balance);
+        transactionHistory.add("Deposited: "+amt);
+        menu();
+
+    }
+
+    public static void transfer() 
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the amount to transfer:");
+        double amount = sc.nextDouble();
+
+        if (amount <= 0)
+        {
+            System.out.println("Invalid transfer amount.");
+        } else if (amount > balance) 
+        {
+            System.out.println("Insufficient balance for transfer.");
+        } else
+        {
+            System.out.println("Enter the recipient's account number:");
+            String recipientAccount = sc.next();
+
+            balance -= amount;
+            System.out.println("Transferred: " + amount + " to account " + recipientAccount);
+            System.out.println("Remaining balance: " + balance);
+            transactionHistory.add("Transfer: " + amount + " to account " + recipientAccount);
+        }
+        menu();
+}
+
+    public static void transactionhist() 
+    {
+        System.out.println("Transaction History:");
+        if(transactionHistory.isEmpty())
+        {
+            System.out.println("No recent transactions");
+        }
+
+        else
+        {
+            for (String transaction : transactionHistory)
+            {
+                System.out.println(transaction);
+            }
+        }
+        menu();
+    }
+
+    public static void quit()
+    {
+        System.out.println("Thank you for visiting our ATM! Do Visit Again!");
+    }
+    
+}
